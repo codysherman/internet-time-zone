@@ -1,5 +1,16 @@
-.frow {
-  min-width: 0;
+:root {
+  --font-size-lg: 4.25vw;
+  --font-size-md: 2vw;
+  --font-size-sm: 1.25vw;
+}
+
+/* XS */
+@media (max-width: 767px) {
+  :root {
+    --font-size-lg: calc(4.25vw * 2);
+    --font-size-md: calc(2vw * 2);
+    --font-size-sm: calc(1.25vw * 2);
+  }
 }
 
 body {
@@ -23,6 +34,14 @@ body {
   grid-template-rows: 50% 50%;
 }
 
+/* XS */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 100%;
+    grid-template-rows: 25% 25%;
+  }
+}
+
 .grid-item {
   justify-self: center;
   align-self: center;
@@ -33,14 +52,14 @@ body {
 }
 
 .time {
-  font-size: 4.25vw;
+  font-size: var(--font-size-lg);
   text-align: center;
   line-height: 100%;
 }
 
 .additional-time {
   color: #ddd;
-  font-size: 2vw;
+  font-size: var(--font-size-md);
 }
 
 .meridian {
@@ -48,14 +67,14 @@ body {
   bottom: 22%;
   right: -20%;
   color: #999;
-  font-size: 1.25vw;
+  font-size: var(--font-size-sm);
   line-height: 0.55;
 }
 
 .label {
   margin: 0;
   text-align: center;
-  font-size: 15px;
+  font-size: var(--font-size-sm);
   color: #bbb;
   text-transform: uppercase;
 }
