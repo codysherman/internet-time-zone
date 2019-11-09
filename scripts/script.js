@@ -108,6 +108,7 @@ function checkMilliseconds() {
       setInterval(() => {
         showMilliseconds();
       }, 1);
+      document.getElementById("seconds-bar").hidden = false;
     }, 1000);
   }
 }
