@@ -19,6 +19,12 @@ setInterval(() => {
   getSwatchTime();
 }, 1000);
 
+function setSecondsBar() {
+  const second = moment().format("ss");
+  document.getElementById("seconds-bar").style.width =
+    (second / 60) * 100 + 1.666 + "%";
+}
+
 function getLegacyTimes() {
   // Unix Time
   document.getElementById("unix-time").textContent = moment().unix();
@@ -77,6 +83,7 @@ function getLegacyTimes() {
   } else if (!document.getElementById("utc-24-hour-time-container").hidden) {
     document.getElementById("utc-24-hour-time-container").hidden = true;
   }
+  setSecondsBar();
 }
 
 function showMilliseconds() {
