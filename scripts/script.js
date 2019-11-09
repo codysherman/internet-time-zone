@@ -58,15 +58,7 @@ function getLegacyTimes() {
   }
 }
 
-getLegacyTimes();
-setInterval(() => {
-  getLegacyTimes();
-}, 1000);
-
 function showMilliseconds() {
-  // document.getElementById(
-  //   "unix-time-milliseconds"
-  // ).textContent = moment().valueOf();
   document.getElementById("unix-time-milliseconds").textContent = moment()
     .valueOf()
     .toString()
@@ -77,3 +69,19 @@ showMilliseconds();
 setInterval(() => {
   showMilliseconds();
 }, 1);
+
+function checkMilliseconds() {
+  if (
+    moment()
+      .valueOf()
+      .toString()
+      .slice(-3, -1) === "00"
+  ) {
+    clearInterval(syncSeconds);
+    setInterval(() => {
+      getLegacyTimes();
+    }, 1000);
+  }
+}
+
+let syncSeconds = setInterval(checkMilliseconds, 10);
