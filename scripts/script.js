@@ -22,12 +22,40 @@ function getLegacyTimes() {
   document.getElementById("local-24-hour-time").textContent = moment().format(
     "HH:mm:ss"
   );
+  if (moment().format("HH") > 12 || moment().format("H") === 0) {
+    if (document.getElementById("local-24-hour-time").hidden) {
+      document.getElementById("local-24-hour-time").hidden = false;
+      document.getElementById("local-24-hour-time-label").hidden = false;
+    }
+    document.getElementById("local-24-hour-time").textContent = moment()
+      .utc()
+      .format("HH:mm:ss");
+  } else if (!document.getElementById("local-24-hour-time").hidden) {
+    document.getElementById("local-24-hour-time").hidden = true;
+    document.getElementById("local-24-hour-time-label").hidden = true;
+  }
   document.getElementById("utc-time").textContent = moment()
     .utc()
     .format("hh:mm:ss a");
-  document.getElementById("utc-24-hour-time").textContent = moment()
-    .utc()
-    .format("HH:mm:ss");
+  if (
+    moment()
+      .utc()
+      .format("HH") > 12 ||
+    moment()
+      .utc()
+      .format("H") === 0
+  ) {
+    if (document.getElementById("utc-24-hour-time").hidden) {
+      document.getElementById("utc-24-hour-time").hidden = false;
+      document.getElementById("utc-24-hour-time-label").hidden = false;
+    }
+    document.getElementById("utc-24-hour-time").textContent = moment()
+      .utc()
+      .format("HH:mm:ss");
+  } else if (!document.getElementById("utc-24-hour-time").hidden) {
+    document.getElementById("utc-24-hour-time").hidden = true;
+    document.getElementById("utc-24-hour-time-label").hidden = true;
+  }
 }
 
 getLegacyTimes();
@@ -36,9 +64,13 @@ setInterval(() => {
 }, 1000);
 
 function showMilliseconds() {
-  document.getElementById(
-    "unix-time-milliseconds"
-  ).textContent = moment().valueOf();
+  // document.getElementById(
+  //   "unix-time-milliseconds"
+  // ).textContent = moment().valueOf();
+  document.getElementById("unix-time-milliseconds").textContent = moment()
+    .valueOf()
+    .toString()
+    .slice(-3);
 }
 
 showMilliseconds();
