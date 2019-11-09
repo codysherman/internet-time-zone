@@ -15,9 +15,22 @@ body {
   align-self: center;
 }
 
+.meridian-wrapper {
+  position: relative;
+}
+
 .time {
   font-size: 4vw;
   text-align: center;
+  line-height: 0.55;
+}
+
+.meridian {
+  position: absolute;
+  bottom: 0;
+  right: -14%;
+  color: gray;
+  font-size: 2vw;
   line-height: 0.55;
 }
 
@@ -31,6 +44,7 @@ body {
 #unix-time-milliseconds {
   color: gray;
   font-size: 2vw;
+  line-height: 0.55;
 }
 
 /* #swatch-time {

@@ -20,7 +20,10 @@ function getLegacyTimes() {
   document.getElementById("unix-time").textContent = moment().unix();
   // Local Time
   document.getElementById("local-time").textContent = moment().format(
-    "hh:mm:ss a"
+    "hh:mm:ss"
+  );
+  document.getElementById("local-time-meridian").textContent = moment().format(
+    "a"
   );
   // Local 24-Hour Time
   if (moment().format("HH") > 12 || moment().format("H") === 0) {
@@ -38,7 +41,10 @@ function getLegacyTimes() {
   // UTC Time
   document.getElementById("utc-time").textContent = moment()
     .utc()
-    .format("hh:mm:ss a");
+    .format("hh:mm:ss");
+  document.getElementById("utc-time-meridian").textContent = moment()
+    .utc()
+    .format("a");
   // UTC 24-Hour Time
   if (
     moment()
