@@ -1,15 +1,15 @@
 :root {
   --font-size-lg: 4.25vw;
   --font-size-md: 2vw;
-  --font-size-sm: 1.25vw;
+  --font-size-sm: 1vw;
 }
 
 /* XS */
 @media (max-width: 767px) {
   :root {
-    --font-size-lg: calc(4.25vw * 2);
-    --font-size-md: calc(2vw * 2);
-    --font-size-sm: calc(1.25vw * 2);
+    --font-size-lg: calc(4.25vw * 3);
+    --font-size-md: calc(2vw * 3);
+    --font-size-sm: calc(1vw * 3);
   }
 }
 
@@ -65,7 +65,7 @@ body {
 .meridian {
   position: absolute;
   bottom: 22%;
-  right: -20%;
+  right: calc(0px - var(--font-size-sm) * 1.5);
   color: #999;
   font-size: var(--font-size-sm);
   line-height: 0.55;
