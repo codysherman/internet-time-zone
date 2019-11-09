@@ -7,22 +7,22 @@ function getSwatchTime() {
         dt.getUTCMinutes() / 60 +
         dt.getUTCSeconds() / 3600) *
         1000) /
-        24
+        24 // Swatch Time is a day divided into 1000 beats
     ) / 1000
-  )
-    .toFixed(3)
-    .substr(2);
+  ) // Divide by 1000 to add zeros before 1-2 digit numbers (25 -> 0.025)
+    .toFixed(3) // Add missing ending zeros (0.02 -> 0.020)
+    .substr(2); // Remove the leading "0." (0.20 -> 020)
 }
 
 getSwatchTime();
 setInterval(() => {
   getSwatchTime();
-}, 1000);
+}, 864); // Update beat every centibeat
 
 function setSecondsBar() {
   const second = moment().format("ss");
   document.getElementById("seconds-bar").style.width =
-    (second / 60) * 100 + 1.666 + "%";
+    (second / 60) * 100 + 1.6667 + "%"; // Add 1.6667 to hit end instead of the final second being 00
 }
 
 function getLegacyTimes() {
@@ -33,24 +33,24 @@ function getLegacyTimes() {
     "hh"
   );
   document.getElementById("local-time").innerHTML = moment().format(
-    `${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm`
+    `${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm` // Blink the colon on even numbers
   );
   document.getElementById("local-time-meridian").textContent = moment().format(
-    "a"
+    "a" // Add the am or pm
   );
   // Local 24-Hour Time
   if (moment().format("HH") > 12 || moment().format("HH") === "00") {
     if (document.getElementById("local-24-hour-time-container").hidden) {
-      document.getElementById("local-24-hour-time-container").hidden = false;
+      document.getElementById("local-24-hour-time-container").hidden = false; // Show 24-hour when PM or 12 AM
     }
     document.getElementById(
       "local-24-hour-time-hour"
     ).textContent = moment().format("HH");
     document.getElementById("local-24-hour-time").textContent = moment().format(
-      `${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm`
+      `${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm` // Blink the colon on even numbers
     );
   } else if (!document.getElementById("local-24-hour-time-container").hidden) {
-    document.getElementById("local-24-hour-time-container").hidden = true;
+    document.getElementById("local-24-hour-time-container").hidden = true; // Hide 24-hour when matches 12-hour
   }
   // UTC Time
   document.getElementById("utc-time-hour").textContent = moment()
@@ -58,7 +58,7 @@ function getLegacyTimes() {
     .format("hh");
   document.getElementById("utc-time").textContent = moment()
     .utc()
-    .format(`${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm`);
+    .format(`${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm`); // Blink the colon on even numbers
   document.getElementById("utc-time-meridian").textContent = moment()
     .utc()
     .format("a");
@@ -72,25 +72,25 @@ function getLegacyTimes() {
       .format("HH") === "00"
   ) {
     if (document.getElementById("utc-24-hour-time-container").hidden) {
-      document.getElementById("utc-24-hour-time-container").hidden = false;
+      document.getElementById("utc-24-hour-time-container").hidden = false; // Show 24-hour when PM or 12 AM
     }
     document.getElementById("utc-24-hour-time-hour").textContent = moment()
       .utc()
       .format("HH");
     document.getElementById("utc-24-hour-time").textContent = moment()
       .utc()
-      .format(`${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm`);
+      .format(`${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm`); // Blink the colon on even numbers
   } else if (!document.getElementById("utc-24-hour-time-container").hidden) {
-    document.getElementById("utc-24-hour-time-container").hidden = true;
+    document.getElementById("utc-24-hour-time-container").hidden = true; // Hide 24-hour when matches 12-hour
   }
-  setSecondsBar();
+  setSecondsBar(); // Update seconds loading bar once a second
 }
 
 function showMilliseconds() {
   document.getElementById("unix-time-milliseconds").textContent = moment()
     .valueOf()
     .toString()
-    .slice(-3);
+    .slice(-3); // Show extra 3 digits from Unix Time Milliseconds separately
 }
 
 function checkMilliseconds() {
@@ -98,19 +98,19 @@ function checkMilliseconds() {
     moment()
       .valueOf()
       .toString()
-      .slice(-3, -1) === "00"
+      .slice(-3, -1) === "00" // Check if decisecond and centisecond are 0, meaning a new second started
   ) {
-    clearInterval(syncSeconds);
+    clearInterval(syncSeconds); // Stop checking if new second
     setInterval(() => {
       getLegacyTimes();
-    }, 1000);
+    }, 1000); // Update clocks every second
     setTimeout(() => {
       setInterval(() => {
         showMilliseconds();
-      }, 1);
+      }, 1); // Update Unix Time Milliseconds every "millisecond", actually every 4 milliseconds according to HTML5 spec
       document.getElementById("seconds-bar").hidden = false;
-    }, 1000);
+    }, 1000); // Wait a second and then display milliseconds (to match up with whden seconds appear)
   }
 }
 
-let syncSeconds = setInterval(checkMilliseconds, 10);
+let syncSeconds = setInterval(checkMilliseconds, 10); // Check when the next second starts, to make time as accurate as possible
