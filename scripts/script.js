@@ -1,4 +1,5 @@
 function getSwatchTime() {
+  // Swatch Internet Time
   const dt = new Date();
   document.getElementById("swatch-time").textContent = Math.floor(
     ((((dt.getUTCHours() + 1) % 24) +
@@ -15,28 +16,30 @@ setInterval(() => {
 }, 1000);
 
 function getLegacyTimes() {
+  // Unix Time
   document.getElementById("unix-time").textContent = moment().unix();
+  // Local Time
   document.getElementById("local-time").textContent = moment().format(
     "hh:mm:ss a"
   );
-  document.getElementById("local-24-hour-time").textContent = moment().format(
-    "HH:mm:ss"
-  );
+  // Local 24-Hour Time
   if (moment().format("HH") > 12 || moment().format("H") === 0) {
     if (document.getElementById("local-24-hour-time").hidden) {
       document.getElementById("local-24-hour-time").hidden = false;
       document.getElementById("local-24-hour-time-label").hidden = false;
     }
-    document.getElementById("local-24-hour-time").textContent = moment()
-      .utc()
-      .format("HH:mm:ss");
+    document.getElementById("local-24-hour-time").textContent = moment().format(
+      "HH:mm:ss"
+    );
   } else if (!document.getElementById("local-24-hour-time").hidden) {
     document.getElementById("local-24-hour-time").hidden = true;
     document.getElementById("local-24-hour-time-label").hidden = true;
   }
+  // UTC Time
   document.getElementById("utc-time").textContent = moment()
     .utc()
     .format("hh:mm:ss a");
+  // UTC 24-Hour Time
   if (
     moment()
       .utc()
