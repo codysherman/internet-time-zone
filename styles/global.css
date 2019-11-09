@@ -91,3 +91,10 @@ body {
   opacity: 0.7;
   animation: fade-in 10s linear;
 }
+
+/* XS */
+@media (max-width: 767px) {
+  #seconds-bar {
+    top: 0;
+  }
+}
