@@ -11,19 +11,41 @@
       name="description"
       content="Schedule your next international meeting with ease"
     />
-    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <meta name="theme-color" content="#02A6A9" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/frow@3/dist/frow.min.css"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Overpass+Mono&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/global.css" />
     <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
   </head>
   <body class="height-100">
-    <div class="frow-container height-100">
-      <div class="frow centered-column">
-        <div id="main-time"></div>
+    <div class="grid height-100">
+      <div class="grid-item">
+        <div id="swatch-time" class="time"></div>
+        <div class="label">Swatch Internet Time</div>
+      </div>
+      <div class="grid-item">
+        <div id="unix-time" class="time"></div>
+        <div id="unix-time-milliseconds" class="time"></div>
+        <div class="label">UNIX Timestamp</div>
+      </div>
+      <div class="grid-item">
+        <div id="local-time" class="time"></div>
+        <div class="label mb-40">Local Time</div>
+        <div id="local-24-hour-time" class="time"></div>
+        <div class="label">Local 24-hour Time</div>
+      </div>
+      <div class="grid-item">
+        <div id="utc-time" class="time"></div>
+        <div class="label mb-40">UTC Time</div>
+        <div id="utc-24-hour-time" class="time"></div>
+        <div class="label">UTC 24-hour Time</div>
       </div>
     </div>
     <script src="./scripts/script.js"></script>
