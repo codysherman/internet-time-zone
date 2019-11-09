@@ -1,12 +1,18 @@
-function getSwatchTime() {
-  // Swatch Internet Time
+function calculateBeat() {
   const dt = new Date();
-  const beat =
+  return (
     ((((dt.getUTCHours() + 1) % 24) +
       dt.getUTCMinutes() / 60 +
-      dt.getUTCSeconds() / 3600) *
+      dt.getUTCSeconds() / 3600 +
+      dt.getUTCMilliseconds() / 3600000) *
       1000) /
-    24; // Swatch Time is a day divided into 1000 beats
+    24 // Swatch Time is a day divided into 1000 beats
+  );
+}
+
+function getSwatchTime() {
+  // Swatch Internet Time
+  const beat = calculateBeat();
   document.getElementById("swatch-time").textContent = (Math.floor(beat) / 1000) // Divide by 1000 to add zeros before 1-2 digit numbers (25 -> 0.025)
     .toFixed(3) // Add missing ending zeros (0.02 -> 0.020)
     .substr(2); // Remove the leading "0." (0.20 -> 020)
@@ -15,10 +21,17 @@ function getSwatchTime() {
     "." + (beat % 1).toFixed(2).substr(2);
 }
 
-getSwatchTime();
-setInterval(() => {
-  getSwatchTime();
-}, 864); // Update beat every centibeat
+function checkMillibeats() {
+  // Check if millibeat is 0, meaning a new centibeat started
+  if ((calculateBeat() % 1).toFixed(3).substr(4) === "0") {
+    clearInterval(syncBeats); // Stop checking if new centibeat
+    setInterval(() => {
+      getSwatchTime();
+    }, 864); // Update beat every centibeat
+  }
+}
+
+const syncBeats = setInterval(checkMillibeats, 9); // Check when the next second starts, to make time as accurate as possible
 
 function setSecondsBar() {
   const second = moment().format("ss");
@@ -114,4 +127,4 @@ function checkMilliseconds() {
   }
 }
 
-let syncSeconds = setInterval(checkMilliseconds, 10); // Check when the next second starts, to make time as accurate as possible
+const syncSeconds = setInterval(checkMilliseconds, 10); // Check when the next second starts, to make time as accurate as possible
