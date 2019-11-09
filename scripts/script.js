@@ -6,7 +6,7 @@ function calculateBeat() {
       dt.getUTCSeconds() / 3600 +
       dt.getUTCMilliseconds() / 3600000) *
       1000) /
-    24 // Swatch Time is a day divided into 1000 beats
+    24 // Swatch Internet Time is a day divided into 1000 .beats
   );
 }
 
@@ -16,18 +16,17 @@ function getSwatchTime() {
   document.getElementById("swatch-time").textContent = (Math.floor(beat) / 1000) // Divide by 1000 to add zeros before 1-2 digit numbers (25 -> 0.025)
     .toFixed(3) // Add missing ending zeros (0.02 -> 0.020)
     .substr(2); // Remove the leading "0." (0.20 -> 020)
-  // console.log(beat.toFixed(4));
   document.getElementById("swatch-time-centibeats").textContent =
     "." + (beat % 1).toFixed(2).substr(2);
 }
 
 function checkMillibeats() {
-  // Check if millibeat is 0, meaning a new centibeat started
+  // Check if .millibeat is 0, meaning a new .centibeat started
   if ((calculateBeat() % 1).toFixed(3).substr(4) === "0") {
-    clearInterval(syncBeats); // Stop checking if new centibeat
+    clearInterval(syncBeats); // Stop checking if new .centibeat
     setInterval(() => {
       getSwatchTime();
-    }, 864); // Update beat every centibeat
+    }, 864); // Update .beat every .centibeat
   }
 }
 
@@ -42,30 +41,6 @@ function setSecondsBar() {
 function getLegacyTimes() {
   // Unix Time
   document.getElementById("unix-time").textContent = moment().unix();
-  // Local Time
-  document.getElementById("local-time-hour").textContent = moment().format(
-    "hh"
-  );
-  document.getElementById("local-time").innerHTML = moment().format(
-    `${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm` // Blink the colon on even numbers
-  );
-  document.getElementById("local-time-meridian").textContent = moment().format(
-    "a" // Add the am or pm
-  );
-  // Local 24-Hour Time
-  if (moment().format("HH") > 12 || moment().format("HH") === "00") {
-    if (document.getElementById("local-24-hour-time-container").hidden) {
-      document.getElementById("local-24-hour-time-container").hidden = false; // Show 24-hour when PM or 12 AM
-    }
-    document.getElementById(
-      "local-24-hour-time-hour"
-    ).textContent = moment().format("HH");
-    document.getElementById("local-24-hour-time").textContent = moment().format(
-      `${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm` // Blink the colon on even numbers
-    );
-  } else if (!document.getElementById("local-24-hour-time-container").hidden) {
-    document.getElementById("local-24-hour-time-container").hidden = true; // Hide 24-hour when matches 12-hour
-  }
   // UTC Time
   document.getElementById("utc-time-hour").textContent = moment()
     .utc()
@@ -96,6 +71,30 @@ function getLegacyTimes() {
       .format(`${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm`); // Blink the colon on even numbers
   } else if (!document.getElementById("utc-24-hour-time-container").hidden) {
     document.getElementById("utc-24-hour-time-container").hidden = true; // Hide 24-hour when matches 12-hour
+  }
+  // Local Time
+  document.getElementById("local-time-hour").textContent = moment().format(
+    "hh"
+  );
+  document.getElementById("local-time").innerHTML = moment().format(
+    `${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm` // Blink the colon on even numbers
+  );
+  document.getElementById("local-time-meridian").textContent = moment().format(
+    "a" // Add the am or pm
+  );
+  // Local 24-Hour Time
+  if (moment().format("HH") > 12 || moment().format("HH") === "00") {
+    if (document.getElementById("local-24-hour-time-container").hidden) {
+      document.getElementById("local-24-hour-time-container").hidden = false; // Show 24-hour when PM or 12 AM
+    }
+    document.getElementById(
+      "local-24-hour-time-hour"
+    ).textContent = moment().format("HH");
+    document.getElementById("local-24-hour-time").textContent = moment().format(
+      `${moment().format("ss") % 2 == 0 ? ":" : "\u00A0"}mm` // Blink the colon on even numbers
+    );
+  } else if (!document.getElementById("local-24-hour-time-container").hidden) {
+    document.getElementById("local-24-hour-time-container").hidden = true; // Hide 24-hour when matches 12-hour
   }
   setSecondsBar(); // Update seconds loading bar once a second
 }
