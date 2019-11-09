@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
-    <title>Internet Time Zone</title>
+    <title>Internet Zone</title>
     <meta
       name="description"
       content="Schedule your next international meeting with ease"
@@ -28,34 +28,50 @@
     <div class="grid height-100">
       <div class="grid-item">
         <div id="swatch-time" class="time"></div>
-        <div class="label">Swatch Internet Time</div>
+        <div class="label">Swatch Internet</div>
       </div>
       <div class="grid-item">
         <div class="frow items-baseline">
           <div id="unix-time" class="time"></div>
-          <div id="unix-time-milliseconds" class="time"></div>
+          <div id="unix-time-milliseconds" class="additional-time"></div>
         </div>
-        <div class="label">Unix Time</div>
+        <div class="label">Unix</div>
       </div>
       <div class="grid-item">
-        <div class="meridian-wrapper">
-          <div id="local-time" class="time"></div>
+        <div class="meridian-container">
+          <div class="frow items-baseline">
+            <div id="local-time-hour" class="time"></div>
+            <div id="local-time" class="additional-time"></div>
+          </div>
           <div id="local-time-meridian" class="meridian"></div>
         </div>
-        <div class="label">Local Time</div>
-        <div id="local-24-hour-time" class="time mt-60"></div>
-        <div id="local-24-hour-time-label" class="label">
-          Local 24-hour Time
+        <div class="label">Local</div>
+        <div id="local-24-hour-time-container" class="mt-40" hidden>
+          <div class="frow items-baseline">
+            <div id="local-24-hour-time-hour" class="time"></div>
+            <div id="local-24-hour-time" class="additional-time"></div>
+          </div>
+          <div id="local-24-hour-time-label" class="label">
+            Local 24-hour
+          </div>
         </div>
       </div>
       <div class="grid-item">
-        <div class="meridian-wrapper">
-          <div id="utc-time" class="time"></div>
+        <div class="meridian-container">
+          <div class="frow items-baseline">
+            <div id="utc-time-hour" class="time"></div>
+            <div id="utc-time" class="additional-time"></div>
+          </div>
           <div id="utc-time-meridian" class="meridian"></div>
         </div>
-        <div class="label">UTC Time</div>
-        <div id="utc-24-hour-time" class="time mt-60"></div>
-        <div id="utc-24-hour-time-label" class="label">UTC 24-hour Time</div>
+        <div class="label">UTC</div>
+        <div id="utc-24-hour-time-container" class="mt-40" hidden>
+          <div class="frow items-baseline">
+            <div id="utc-24-hour-time-hour" class="time"></div>
+            <div id="utc-24-hour-time" class="additional-time"></div>
+          </div>
+          <div id="utc-24-hour-time-label" class="label">UTC 24-hour</div>
+        </div>
       </div>
     </div>
     <script src="./scripts/script.js"></script>

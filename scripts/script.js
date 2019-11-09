@@ -19,29 +19,34 @@ function getLegacyTimes() {
   // Unix Time
   document.getElementById("unix-time").textContent = moment().unix();
   // Local Time
-  document.getElementById("local-time").textContent = moment().format(
-    "hh:mm:ss"
+  document.getElementById("local-time-hour").textContent = moment().format(
+    "hh"
   );
+  document.getElementById("local-time").textContent = moment().format(":mm");
   document.getElementById("local-time-meridian").textContent = moment().format(
     "a"
   );
   // Local 24-Hour Time
   if (moment().format("HH") > 12 || moment().format("H") === 0) {
-    if (document.getElementById("local-24-hour-time").hidden) {
-      document.getElementById("local-24-hour-time").hidden = false;
-      document.getElementById("local-24-hour-time-label").hidden = false;
+    if (document.getElementById("local-24-hour-time-container").hidden) {
+      document.getElementById("local-24-hour-time-container").hidden = false;
     }
+    document.getElementById(
+      "local-24-hour-time-hour"
+    ).textContent = moment().format("HH");
     document.getElementById("local-24-hour-time").textContent = moment().format(
-      "HH:mm:ss"
+      ":mm"
     );
-  } else if (!document.getElementById("local-24-hour-time").hidden) {
-    document.getElementById("local-24-hour-time").hidden = true;
-    document.getElementById("local-24-hour-time-label").hidden = true;
+  } else if (!document.getElementById("local-24-hour-time-container").hidden) {
+    document.getElementById("local-24-hour-time-container").hidden = true;
   }
   // UTC Time
+  document.getElementById("utc-time-hour").textContent = moment()
+    .utc()
+    .format("hh");
   document.getElementById("utc-time").textContent = moment()
     .utc()
-    .format("hh:mm:ss");
+    .format(":mm");
   document.getElementById("utc-time-meridian").textContent = moment()
     .utc()
     .format("a");
@@ -54,16 +59,17 @@ function getLegacyTimes() {
       .utc()
       .format("H") === 0
   ) {
-    if (document.getElementById("utc-24-hour-time").hidden) {
-      document.getElementById("utc-24-hour-time").hidden = false;
-      document.getElementById("utc-24-hour-time-label").hidden = false;
+    if (document.getElementById("utc-24-hour-time-container").hidden) {
+      document.getElementById("utc-24-hour-time-container").hidden = false;
     }
+    document.getElementById("utc-24-hour-time-hour").textContent = moment()
+      .utc()
+      .format("HH");
     document.getElementById("utc-24-hour-time").textContent = moment()
       .utc()
-      .format("HH:mm:ss");
-  } else if (!document.getElementById("utc-24-hour-time").hidden) {
-    document.getElementById("utc-24-hour-time").hidden = true;
-    document.getElementById("utc-24-hour-time-label").hidden = true;
+      .format(":mm");
+  } else if (!document.getElementById("utc-24-hour-time-container").hidden) {
+    document.getElementById("utc-24-hour-time-container").hidden = true;
   }
 }
 
