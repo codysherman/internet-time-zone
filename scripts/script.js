@@ -39,7 +39,7 @@ function getLegacyTimes() {
     "a"
   );
   // Local 24-Hour Time
-  if (moment().format("HH") > 12 || moment().format("H") === 0) {
+  if (moment().format("HH") > 12 || moment().format("HH") === "00") {
     if (document.getElementById("local-24-hour-time-container").hidden) {
       document.getElementById("local-24-hour-time-container").hidden = false;
     }
@@ -69,7 +69,7 @@ function getLegacyTimes() {
       .format("HH") > 12 ||
     moment()
       .utc()
-      .format("H") === 0
+      .format("HH") === "00"
   ) {
     if (document.getElementById("utc-24-hour-time-container").hidden) {
       document.getElementById("utc-24-hour-time-container").hidden = false;
