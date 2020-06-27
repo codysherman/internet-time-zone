@@ -13,10 +13,12 @@ function calculateBeat() {
 function getSwatchTime() {
   // Swatch Internet Time
   const beat = calculateBeat();
-  document.getElementById("swatch-time").textContent = (
-    Math.floor(
-    Math.round(beat * 100)/100 // Round to consider .995+ as a new beat (inline with centibeat's .00 rounded from .995+)
-    ) / 1000) // Divide by 1000 to add zeros before 1-2 digit numbers (25 -> 0.025)
+  document.getElementById("swatch-time").textContent =
+    (
+      Math.floor(
+        Math.round(beat * 100) / 100 // Round to consider .995+ as a new beat (inline with centibeat's .00 rounded from .995+)
+      ) / 1000 // Divide to allow following steps to add zeros in design
+    ) // Divide by 1000 to add zeros before 1-2 digit numbers (25 -> 0.025)
     .toFixed(3) // Add missing ending zeros (0.02 -> 0.020)
     .substr(2); // Remove the leading "0." (0.20 -> 020)
   console.log(beat, (beat % 1).toFixed(2).substr(2))
